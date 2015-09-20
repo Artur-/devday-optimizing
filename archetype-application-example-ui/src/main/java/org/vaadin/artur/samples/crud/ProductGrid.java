@@ -123,6 +123,7 @@ public class ProductGrid extends Grid {
 	public void setProducts(Collection<Product> products) {
 		getContainer().removeAllItems();
 		getContainer().addAll(products);
+		recalculateColumnWidths();
 	}
 
 	public void refresh(Product product) {

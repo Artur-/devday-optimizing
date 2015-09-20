@@ -1,5 +1,6 @@
 package org.vaadin.artur.samples.backend.mock;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.vaadin.artur.samples.backend.DataService;
@@ -24,7 +25,7 @@ public class MockDataService extends DataService {
 		nextProductId = products.size() + 1;
 	}
 
-	public synchronized static DataService getInstance() {
+	public synchronized static MockDataService getInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new MockDataService();
 		}
