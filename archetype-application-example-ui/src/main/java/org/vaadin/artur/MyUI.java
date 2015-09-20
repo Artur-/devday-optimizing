@@ -31,41 +31,41 @@ import com.vaadin.ui.themes.ValoTheme;
 @Widgetset("org.vaadin.artur.MyAppWidgetset")
 public class MyUI extends UI {
 
-    private AccessControl accessControl = new BasicAccessControl();
+	private AccessControl accessControl = new BasicAccessControl();
 
-    @Override
-    protected void init(VaadinRequest vaadinRequest) {
-        Responsive.makeResponsive(this);
-        setLocale(vaadinRequest.getLocale());
-        getPage().setTitle("My");
-        if (!accessControl.isUserSignedIn()) {
-            setContent(new LoginScreen(accessControl, new LoginListener() {
-                @Override
-                public void loginSuccessful() {
-                    showMainView();
-                }
-            }));
-        } else {
-            showMainView();
-        }
-    }
+	@Override
+	protected void init(VaadinRequest vaadinRequest) {
+		Responsive.makeResponsive(this);
+		setLocale(vaadinRequest.getLocale());
+		getPage().setTitle("My");
+		if (!accessControl.isUserSignedIn()) {
+			setContent(new LoginScreen(accessControl, new LoginListener() {
+				@Override
+				public void loginSuccessful() {
+					showMainView();
+				}
+			}));
+		} else {
+			showMainView();
+		}
+	}
 
-    protected void showMainView() {
-        addStyleName(ValoTheme.UI_WITH_MENU);
-        setContent(new MainScreen(MyUI.this));
-        getNavigator().navigateTo(getNavigator().getState());
-    }
+	protected void showMainView() {
+		addStyleName(ValoTheme.UI_WITH_MENU);
+		setContent(new MainScreen(MyUI.this));
+		getNavigator().navigateTo(getNavigator().getState());
+	}
 
-    public static MyUI get() {
-        return (MyUI) UI.getCurrent();
-    }
+	public static MyUI get() {
+		return (MyUI) UI.getCurrent();
+	}
 
-    public AccessControl getAccessControl() {
-        return accessControl;
-    }
+	public AccessControl getAccessControl() {
+		return accessControl;
+	}
 
-    @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
-    @VaadinServletConfiguration(ui = MyUI.class, productionMode = false)
-    public static class MyUIServlet extends VaadinServlet {
-    }
+	@WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
+	@VaadinServletConfiguration(ui = MyUI.class, productionMode = false)
+	public static class MyUIServlet extends VaadinServlet {
+	}
 }

@@ -9,5 +9,5 @@ import java.util.HashMap;
  * to client.
  */
 public class AttributeExtensionState extends JavaScriptExtensionState {
-    public HashMap<String, String> attributes = new HashMap<String, String>();
+	public HashMap<String, String> attributes = new HashMap<String, String>();
 }

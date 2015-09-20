@@ -22,87 +22,82 @@ import org.vaadin.artur.samples.ResetButtonForTextField;
  *      in Vaadin 7</a>
  */
 @Connect(ResetButtonForTextField.class)
-public class ResetButtonForTextFieldConnector extends
-        AbstractExtensionConnector implements KeyUpHandler, AttachEvent.Handler {
+public class ResetButtonForTextFieldConnector extends AbstractExtensionConnector
+		implements KeyUpHandler, AttachEvent.Handler {
 
-    public static final String CLASSNAME = "resetbuttonfortextfield";
-    private VTextField textField;
-    private Element resetButtonElement;
+	public static final String CLASSNAME = "resetbuttonfortextfield";
+	private VTextField textField;
+	private Element resetButtonElement;
 
-    @Override
-    protected void extend(ServerConnector serverConnector) {
-        serverConnector
-                .addStateChangeHandler(new StateChangeEvent.StateChangeHandler() {
-                    @Override
-                    public void onStateChanged(StateChangeEvent stateChangeEvent) {
-                        Scheduler.get().scheduleDeferred(
-                                new Scheduler.ScheduledCommand() {
-                                    @Override
-                                    public void execute() {
-                                        updateResetButtonVisibility();
-                                    }
-                                });
-                    }
-                });
+	@Override
+	protected void extend(ServerConnector serverConnector) {
+		serverConnector.addStateChangeHandler(new StateChangeEvent.StateChangeHandler() {
+			@Override
+			public void onStateChanged(StateChangeEvent stateChangeEvent) {
+				Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
+					@Override
+					public void execute() {
+						updateResetButtonVisibility();
+					}
+				});
+			}
+		});
 
-        textField = (VTextField) ((ComponentConnector) serverConnector)
-                .getWidget();
-        textField.addStyleName(CLASSNAME + "-textfield");
+		textField = (VTextField) ((ComponentConnector) serverConnector).getWidget();
+		textField.addStyleName(CLASSNAME + "-textfield");
 
-        resetButtonElement = DOM.createDiv();
-        resetButtonElement.addClassName(CLASSNAME + "-resetbutton");
+		resetButtonElement = DOM.createDiv();
+		resetButtonElement.addClassName(CLASSNAME + "-resetbutton");
 
-        textField.addAttachHandler(this);
-        textField.addKeyUpHandler(this);
-    }
+		textField.addAttachHandler(this);
+		textField.addKeyUpHandler(this);
+	}
 
-    private void updateResetButtonVisibility() {
-        if (textField.getValue().isEmpty()
-                || textField.getStyleName().contains("v-textfield-prompt")) {
-            resetButtonElement.getStyle().setDisplay(Style.Display.NONE);
-        } else {
-            resetButtonElement.getStyle().clearDisplay();
-        }
-    }
+	private void updateResetButtonVisibility() {
+		if (textField.getValue().isEmpty() || textField.getStyleName().contains("v-textfield-prompt")) {
+			resetButtonElement.getStyle().setDisplay(Style.Display.NONE);
+		} else {
+			resetButtonElement.getStyle().clearDisplay();
+		}
+	}
 
-    public native void addResetButtonClickListener(Element el)
-    /*-{
-        var self = this;
-        el.onclick = $entry(function () {
-            self.@org.vaadin.artur.client.samples.ResetButtonForTextFieldConnector::clearTextField()();
-        });
-    }-*/;
+	public native void addResetButtonClickListener(Element el)
+	/*-{
+	    var self = this;
+	    el.onclick = $entry(function () {
+	        self.@org.vaadin.artur.client.samples.ResetButtonForTextFieldConnector::clearTextField()();
+	    });
+	}-*/;
 
-    public native void removeResetButtonClickListener(Element el)
-    /*-{
-        el.onclick = null;
-    }-*/;
+	public native void removeResetButtonClickListener(Element el)
+	/*-{
+	    el.onclick = null;
+	}-*/;
 
-    @Override
-    public void onKeyUp(KeyUpEvent keyUpEvent) {
-        updateResetButtonVisibility();
-    }
+	@Override
+	public void onKeyUp(KeyUpEvent keyUpEvent) {
+		updateResetButtonVisibility();
+	}
 
-    @Override
-    public void onAttachOrDetach(AttachEvent attachEvent) {
-        if (attachEvent.isAttached()) {
-            textField.getElement().getParentElement()
-                    .insertAfter(resetButtonElement, textField.getElement());
-            updateResetButtonVisibility();
-            addResetButtonClickListener(resetButtonElement);
-        } else {
-            Element parentElement = resetButtonElement.getParentElement();
-            if (parentElement != null) {
-                parentElement.removeChild(resetButtonElement);
-            }
-            removeResetButtonClickListener(resetButtonElement);
-        }
-    }
+	@Override
+	public void onAttachOrDetach(AttachEvent attachEvent) {
+		if (attachEvent.isAttached()) {
+			textField.getElement().getParentElement().insertAfter(resetButtonElement, textField.getElement());
+			updateResetButtonVisibility();
+			addResetButtonClickListener(resetButtonElement);
+		} else {
+			Element parentElement = resetButtonElement.getParentElement();
+			if (parentElement != null) {
+				parentElement.removeChild(resetButtonElement);
+			}
+			removeResetButtonClickListener(resetButtonElement);
+		}
+	}
 
-    private void clearTextField() {
-        textField.setValue("");
-        textField.valueChange(true);
-        updateResetButtonVisibility();
-        textField.getElement().focus();
-    }
+	private void clearTextField() {
+		textField.setValue("");
+		textField.valueChange(true);
+		updateResetButtonVisibility();
+		textField.getElement().focus();
+	}
 }

@@ -10,16 +10,16 @@ import com.vaadin.ui.TextField;
 @JavaScript("attribute_extension_connector.js")
 public class AttributeExtension extends AbstractJavaScriptExtension {
 
-    public void extend(TextField target) {
-        super.extend(target);
-    }
+	public void extend(TextField target) {
+		super.extend(target);
+	}
 
-    @Override
-    protected AttributeExtensionState getState() {
-        return (AttributeExtensionState) super.getState();
-    }
+	@Override
+	protected AttributeExtensionState getState() {
+		return (AttributeExtensionState) super.getState();
+	}
 
-    public void setAttribute(String attribute, String value) {
-        getState().attributes.put(attribute, value);
-    }
+	public void setAttribute(String attribute, String value) {
+		getState().attributes.put(attribute, value);
+	}
 }
