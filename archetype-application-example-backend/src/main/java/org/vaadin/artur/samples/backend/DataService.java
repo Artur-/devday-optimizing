@@ -21,7 +21,7 @@ public abstract class DataService {
 
 	public abstract Product getProductById(int productId);
 
-	public static DataService get() {
+	public static MockDataService get() {
 		return MockDataService.getInstance();
 	}
 

@@ -3,6 +3,8 @@ package org.vaadin.artur.samples;
 import org.vaadin.artur.MyUI;
 import org.vaadin.artur.samples.about.AboutView;
 import org.vaadin.artur.samples.crud.SampleCrudView;
+import org.vaadin.artur.samples.crud.fastgrid.FastGridView;
+import org.vaadin.artur.samples.crud.slowtable.SlowTableView;
 
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.ViewChangeListener;
@@ -31,6 +33,10 @@ public class MainScreen extends HorizontalLayout {
 		menu = new Menu(navigator);
 		menu.addView(new SampleCrudView(), SampleCrudView.VIEW_NAME, SampleCrudView.VIEW_NAME, FontAwesome.EDIT);
 		menu.addView(new AboutView(), AboutView.VIEW_NAME, AboutView.VIEW_NAME, FontAwesome.INFO_CIRCLE);
+		menu.addView(new SlowTableView(), SlowTableView.VIEW_NAME,
+				SlowTableView.VIEW_NAME, FontAwesome.BAN);
+		menu.addView(new FastGridView(), FastGridView.VIEW_NAME,
+				FastGridView.VIEW_NAME, FontAwesome.TABLE);
 
 		navigator.addViewChangeListener(viewChangeListener);
 

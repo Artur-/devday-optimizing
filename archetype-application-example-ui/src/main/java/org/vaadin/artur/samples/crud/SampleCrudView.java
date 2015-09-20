@@ -159,4 +159,11 @@ public class SampleCrudView extends CssLayout implements View {
 		grid.remove(product);
 	}
 
+	public void setLoading(boolean loading) {
+		if (loading) {
+			grid.addStyleName("grid-loading");
+		} else {
+			grid.removeStyleName("grid-loading");
+		}
+	}
 }

@@ -37,6 +37,15 @@ public class MockDataService extends DataService {
 		return products;
 	}
 
+	public synchronized List<Product> getAllProductsSlow() {
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		return products;
+	}
+
 	@Override
 	public synchronized List<Category> getAllCategories() {
 		return categories;

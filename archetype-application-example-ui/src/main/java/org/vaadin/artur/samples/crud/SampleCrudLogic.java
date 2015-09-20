@@ -1,10 +1,16 @@
 package org.vaadin.artur.samples.crud;
 
+import java.util.Collection;
+import java.util.List;
+
 import org.vaadin.artur.MyUI;
 import org.vaadin.artur.samples.backend.DataService;
 import org.vaadin.artur.samples.backend.data.Product;
 
 import com.vaadin.server.Page;
+import com.vaadin.ui.Grid;
+import com.vaadin.ui.UI;
+import com.vaadin.ui.UIDetachedException;
 
 /**
  * This class provides an interface for the logical operations between the CRUD
